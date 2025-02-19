@@ -28,7 +28,8 @@ Online Bank Statements: plaid.com
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module provides online bank statements from Plaid.com.
+This module provides online bank statements from Plaid.com, supporting
+both Sandbox and Production environments.
 
 **Table of contents**
 
@@ -59,9 +60,43 @@ or, alternatively:
 6. Save the bank account
 7. Click on provider and configure provider-specific settings.
 
-To obtain *Login* and *Key*:
+Plaid Account & Credentials
+---------------------------
 
-1. Open `Plaid.com <https://plaid.com/>`__.
+To obtain the necessary credentials (*Client ID* and *Secret*), follow
+these steps:
+
+1. **Create a Plaid Account**: Go to
+   `dashboard.plaid.com/signup <https://dashboard.plaid.com/signup>`__
+   and sign up for a developer account.
+
+2. **Get Credentials**: Once logged in, navigate to **Platform >
+   Developers > Keys** in the Plaid Dashboard. Here you will find your
+   **Client ID** and **Secret**.
+
+      **Note**: There are different secrets for **Sandbox** (testing)
+      and **Production** (live) environments. Make sure to copy the
+      secret corresponding to the environment you intend to use.
+
+   ..
+
+      **Important**: **Account Approval Times:**
+
+      -  For **US-based companies**, approval typically takes **1-2
+         business days**.
+      -  For **companies outside the United States**, the approval
+         process may take longer.
+
+Configuration in Odoo
+---------------------
+
+When configuring the provider in Odoo, map the Plaid credentials as
+follows:
+
+-  **Username**: Enter your Plaid **Client ID**.
+-  **Password**: Enter your Plaid **Secret** (Sandbox or Production).
+-  **Plaid Environment**: Select **Sandbox** for testing or
+   **Production** for live data.
 
 Check also ``account_bank_statement_import_online`` configuration
 instructions for more information.
@@ -105,7 +140,7 @@ Contributors
 
 -  `Binhex <https://binhex.cloud>`__:
 
-   -  Adasat Torres de León <a.torres@binhex.cloud>
+   -  Adasat Torres de León a.torres@binhex.cloud
 
 Maintainers
 -----------

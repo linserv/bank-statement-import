@@ -1,5 +1,5 @@
 # generated from manifests external_dependencies
 chardet
 ofxparse
-plaid-python == 28.0.0
+plaid-python
 xlrd

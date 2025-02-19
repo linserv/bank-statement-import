@@ -370,17 +370,22 @@ ul.auto-toc {
 !! source digest: sha256:a7b84e04274ce7746346dbb4b33c1d2d98df5306dfde3a173ce2982576104eae
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/bank-statement-import/tree/17.0/account_statement_import_online_plaid"><img alt="OCA/bank-statement-import" src="https://img.shields.io/badge/github-OCA%2Fbank--statement--import-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/bank-statement-import-17-0/bank-statement-import-17-0-account_statement_import_online_plaid"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/bank-statement-import&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
-<p>This module provides online bank statements from Plaid.com.</p>
+<p>This module provides online bank statements from Plaid.com, supporting
+both Sandbox and Production environments.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#configuration" id="toc-entry-1">Configuration</a></li>
-<li><a class="reference internal" href="#usage" id="toc-entry-2">Usage</a></li>
-<li><a class="reference internal" href="#bug-tracker" id="toc-entry-3">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="toc-entry-4">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="toc-entry-5">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="toc-entry-6">Contributors</a></li>
-<li><a class="reference internal" href="#maintainers" id="toc-entry-7">Maintainers</a></li>
+<li><a class="reference internal" href="#configuration" id="toc-entry-1">Configuration</a><ul>
+<li><a class="reference internal" href="#plaid-account-credentials" id="toc-entry-2">Plaid Account &amp; Credentials</a></li>
+<li><a class="reference internal" href="#configuration-in-odoo" id="toc-entry-3">Configuration in Odoo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage" id="toc-entry-4">Usage</a></li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-5">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-6">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-7">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-8">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-9">Maintainers</a></li>
 </ul>
 </li>
 </ul>
@@ -408,15 +413,52 @@ Statements (OCA)</em> section</li>
 <li>Save the bank account</li>
 <li>Click on provider and configure provider-specific settings.</li>
 </ol>
-<p>To obtain <em>Login</em> and <em>Key</em>:</p>
-<ol class="arabic simple">
-<li>Open <a class="reference external" href="https://plaid.com/">Plaid.com</a>.</li>
+<div class="section" id="plaid-account-credentials">
+<h2><a class="toc-backref" href="#toc-entry-2">Plaid Account &amp; Credentials</a></h2>
+<p>To obtain the necessary credentials (<em>Client ID</em> and <em>Secret</em>), follow
+these steps:</p>
+<ol class="arabic">
+<li><p class="first"><strong>Create a Plaid Account</strong>: Go to
+<a class="reference external" href="https://dashboard.plaid.com/signup">dashboard.plaid.com/signup</a>
+and sign up for a developer account.</p>
+</li>
+<li><p class="first"><strong>Get Credentials</strong>: Once logged in, navigate to <strong>Platform &gt;
+Developers &gt; Keys</strong> in the Plaid Dashboard. Here you will find your
+<strong>Client ID</strong> and <strong>Secret</strong>.</p>
+<blockquote>
+<p><strong>Note</strong>: There are different secrets for <strong>Sandbox</strong> (testing)
+and <strong>Production</strong> (live) environments. Make sure to copy the
+secret corresponding to the environment you intend to use.</p>
+</blockquote>
+<!--  -->
+<blockquote>
+<p><strong>Important</strong>: <strong>Account Approval Times:</strong></p>
+<ul class="simple">
+<li>For <strong>US-based companies</strong>, approval typically takes <strong>1-2
+business days</strong>.</li>
+<li>For <strong>companies outside the United States</strong>, the approval
+process may take longer.</li>
+</ul>
+</blockquote>
+</li>
 </ol>
+</div>
+<div class="section" id="configuration-in-odoo">
+<h2><a class="toc-backref" href="#toc-entry-3">Configuration in Odoo</a></h2>
+<p>When configuring the provider in Odoo, map the Plaid credentials as
+follows:</p>
+<ul class="simple">
+<li><strong>Username</strong>: Enter your Plaid <strong>Client ID</strong>.</li>
+<li><strong>Password</strong>: Enter your Plaid <strong>Secret</strong> (Sandbox or Production).</li>
+<li><strong>Plaid Environment</strong>: Select <strong>Sandbox</strong> for testing or
+<strong>Production</strong> for live data.</li>
+</ul>
 <p>Check also <tt class="docutils literal">account_bank_statement_import_online</tt> configuration
 instructions for more information.</p>
 </div>
+</div>
 <div class="section" id="usage">
-<h1><a class="toc-backref" href="#toc-entry-2">Usage</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-4">Usage</a></h1>
 <p>To pull historical bank statements:</p>
 <ol class="arabic simple">
 <li>Go to <em>Invoicing &gt; Configuration &gt; Bank Accounts</em></li>
@@ -431,7 +473,7 @@ scheduled activity “Pull Online Bank Statements” to be executed for
 getting new transactions.</p>
 </div>
 <div class="section" id="bug-tracker">
-<h1><a class="toc-backref" href="#toc-entry-3">Bug Tracker</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-5">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/bank-statement-import/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
@@ -439,24 +481,24 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h1><a class="toc-backref" href="#toc-entry-4">Credits</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-6">Credits</a></h1>
 <div class="section" id="authors">
-<h2><a class="toc-backref" href="#toc-entry-5">Authors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-7">Authors</a></h2>
 <ul class="simple">
 <li>Binhex</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h2><a class="toc-backref" href="#toc-entry-6">Contributors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-8">Contributors</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://binhex.cloud">Binhex</a>:<ul>
-<li>Adasat Torres de León &lt;<a class="reference external" href="mailto:a.torres&#64;binhex.cloud">a.torres&#64;binhex.cloud</a>&gt;</li>
+<li>Adasat Torres de León <a class="reference external" href="mailto:a.torres&#64;binhex.cloud">a.torres&#64;binhex.cloud</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="maintainers">
-<h2><a class="toc-backref" href="#toc-entry-7">Maintainers</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-9">Maintainers</a></h2>
 <p>This module is maintained by the OCA.</p>
 <a class="reference external image-reference" href="https://odoo-community.org">
 <img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />

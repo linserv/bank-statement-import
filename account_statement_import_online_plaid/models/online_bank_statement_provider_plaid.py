@@ -1,5 +1,6 @@
 # Copyright 2024 Binhex - Adasat Torres de León.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -89,6 +90,13 @@ class OnlineBankStatementProvider(models.Model):
         }
 
     def _plaid_retrieve_data(self, date_since, date_until):
+        if not self.plaid_access_token:
+            raise UserError(
+                _(
+                    "Please link your Plaid account first by "
+                    "clicking on 'Sync with Plaid'."
+                )
+            )
         plaid_interface = self.env["plaid.interface"]
         args = [self.username, self.password, self.plaid_host]
         client = plaid_interface._client(*args)
