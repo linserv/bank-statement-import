@@ -54,10 +54,10 @@ msgid ""
 "the related bank journal. If the related bank journal doesn't exist yet, you "
 "should create a new one."
 msgstr ""
-"Impossible de trouver un compte bancaire avec le numéro '%(account_number)s' lié au "
-"partenaire '%(partner_name)s'. Vous devez créer le compte bancaire et le définir dans le "
-"journal bancaire associé. Si le journal bancaire associé n'existe pas "
-"encore, vous devez en créer un nouveau."
+"Impossible de trouver un compte bancaire avec le numéro '%(account_number)s' "
+"lié au partenaire '%(partner_name)s'. Vous devez créer le compte bancaire et "
+"le définir dans le journal bancaire associé. Si le journal bancaire associé "
+"n'existe pas encore, vous devez en créer un nouveau."
 
 #. module: account_statement_import_file
 #: model:ir.model.fields,field_description:account_statement_import_file.field_account_statement_import__create_uid

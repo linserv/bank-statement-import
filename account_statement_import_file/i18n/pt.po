@@ -51,9 +51,10 @@ msgid ""
 "the related bank journal. If the related bank journal doesn't exist yet, you "
 "should create a new one."
 msgstr ""
-"Não foi encontrada nenhuma conta bancária com o número '%(account_number)s' ligada ao "
-"parceiro '%(partner_name)s'. Você deve criar a conta bancária e defini-la no diário "
-"bancário relacionado. Se este ainda não existir, deve criar um novo diário."
+"Não foi encontrada nenhuma conta bancária com o número '%(account_number)s' "
+"ligada ao parceiro '%(partner_name)s'. Você deve criar a conta bancária e "
+"defini-la no diário bancário relacionado. Se este ainda não existir, deve "
+"criar um novo diário."
 
 #. module: account_statement_import_file
 #: model:ir.model.fields,field_description:account_statement_import_file.field_account_statement_import__create_uid

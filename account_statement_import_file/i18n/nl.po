@@ -60,9 +60,10 @@ msgid ""
 "the related bank journal. If the related bank journal doesn't exist yet, you "
 "should create a new one."
 msgstr ""
-"Bankrekening '%(account_number)s' van relatie '%(partner_name)s' kan niet worden gevonden. Maak de "
-"bankrekening aan en koppel deze aan het bijbehorende dagboek. Als het "
-"gerelateerde dagboek nog niet bestaat, maak dan een nieuwe aan."
+"Bankrekening '%(account_number)s' van relatie '%(partner_name)s' kan niet "
+"worden gevonden. Maak de bankrekening aan en koppel deze aan het "
+"bijbehorende dagboek. Als het gerelateerde dagboek nog niet bestaat, maak "
+"dan een nieuwe aan."
 
 #. module: account_statement_import_file
 #: model:ir.model.fields,field_description:account_statement_import_file.field_account_statement_import__create_uid
