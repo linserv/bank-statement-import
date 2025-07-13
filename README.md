@@ -29,7 +29,7 @@ addon | version | maintainers | summary
 [account_statement_import_move_line](account_statement_import_move_line/) | 17.0.1.0.0 | <a href='https://github.com/pedrobaeza'><img src='https://github.com/pedrobaeza.png' width='32' height='32' style='border-radius:50%;' alt='pedrobaeza'/></a> | Import journal items into bank statement
 [account_statement_import_ofx](account_statement_import_ofx/) | 17.0.1.0.0 | <a href='https://github.com/alexis-via'><img src='https://github.com/alexis-via.png' width='32' height='32' style='border-radius:50%;' alt='alexis-via'/></a> | Import OFX Bank Statement
 [account_statement_import_online](account_statement_import_online/) | 17.0.1.1.0 | <a href='https://github.com/alexey-pelykh'><img src='https://github.com/alexey-pelykh.png' width='32' height='32' style='border-radius:50%;' alt='alexey-pelykh'/></a> | Online bank statements update
-[account_statement_import_online_gocardless](account_statement_import_online_gocardless/) | 17.0.1.0.2 |  | Online Bank Statements: GoCardless
+[account_statement_import_online_gocardless](account_statement_import_online_gocardless/) | 17.0.1.0.3 |  | Online Bank Statements: GoCardless
 [account_statement_import_online_ponto](account_statement_import_online_ponto/) | 17.0.1.1.1 |  | Online Bank Statements: MyPonto.com
 [account_statement_import_online_stripe](account_statement_import_online_stripe/) | 17.0.1.0.0 | <a href='https://github.com/juancarlosonate-tecnativa'><img src='https://github.com/juancarlosonate-tecnativa.png' width='32' height='32' style='border-radius:50%;' alt='juancarlosonate-tecnativa'/></a> | Online bank statements for Stripe
 [account_statement_import_paypal](account_statement_import_paypal/) | 17.0.1.0.0 |  | Import PayPal CSV files as Bank Statements in Odoo
