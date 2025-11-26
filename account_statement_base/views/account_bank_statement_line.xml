@@ -117,11 +117,7 @@
                     domain="[('is_reconciled', '=', False)]"
                 />
             <separator />
-            <filter
-                    name="to_check"
-                    string="To check"
-                    domain="[('move_id.checked', '=', False)]"
-                />
+            <filter name="to_check" string="To Check" domain="[('review_state', 'in', ('todo', 'anomaly'))]"/>
             <separator />
             <filter name="date" string="Date" date="date" />
             <group name="groupby">
