@@ -12,7 +12,8 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import fields
 from odoo.exceptions import UserError
-from odoo.tests import common
+
+from odoo.addons.base.tests.common import BaseCommon
 
 _module_ns = "odoo.addons.account_statement_import_online_paypal"
 _provider_class = (
@@ -49,27 +50,27 @@ class UrlopenRetValMock:
         return self.content.encode("utf-8")
 
 
-class TestAccountBankAccountStatementImportOnlinePayPal(common.TransactionCase):
-    def setUp(self):
-        super().setUp()
+class TestAccountBankAccountStatementImportOnlinePayPal(BaseCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.now = fields.Datetime.now()
+        cls.now_isoformat = cls.now.isoformat() + "+0000"
+        cls.today = datetime(cls.now.year, cls.now.month, cls.now.day)
+        cls.today_isoformat = cls.today.isoformat() + "+0000"
+        cls.today_timestamp = str(int(cls.today.timestamp()))
+        cls.yesterday = cls.today - relativedelta(days=1)
+        cls.yesterday_isoformat = cls.yesterday.isoformat() + "+0000"
+        cls.yesterday_timestamp = str(int(cls.yesterday.timestamp()))
+        cls.currency_eur = cls.env.ref("base.EUR")
+        cls.currency_usd = cls.env.ref("base.USD")
+        cls.AccountJournal = cls.env["account.journal"]
+        cls.OnlineBankStatementProvider = cls.env["online.bank.statement.provider"]
+        cls.AccountBankStatement = cls.env["account.bank.statement"]
+        cls.AccountBankStatementLine = cls.env["account.bank.statement.line"]
 
-        self.now = fields.Datetime.now()
-        self.now_isoformat = self.now.isoformat() + "+0000"
-        self.today = datetime(self.now.year, self.now.month, self.now.day)
-        self.today_isoformat = self.today.isoformat() + "+0000"
-        self.today_timestamp = str(int(self.today.timestamp()))
-        self.yesterday = self.today - relativedelta(days=1)
-        self.yesterday_isoformat = self.yesterday.isoformat() + "+0000"
-        self.yesterday_timestamp = str(int(self.yesterday.timestamp()))
-        self.currency_eur = self.env.ref("base.EUR")
-        self.currency_usd = self.env.ref("base.USD")
-        self.AccountJournal = self.env["account.journal"]
-        self.OnlineBankStatementProvider = self.env["online.bank.statement.provider"]
-        self.AccountBankStatement = self.env["account.bank.statement"]
-        self.AccountBankStatementLine = self.env["account.bank.statement.line"]
-
-        Provider = self.OnlineBankStatementProvider
-        self.paypal_parse_transaction = lambda payload: (
+        Provider = cls.OnlineBankStatementProvider
+        cls.paypal_parse_transaction = lambda self, payload: (
             Provider._paypal_transaction_to_lines(
                 Provider._paypal_preparse_transaction(
                     json.loads(
@@ -79,7 +80,7 @@ class TestAccountBankAccountStatementImportOnlinePayPal(common.TransactionCase):
                 )
             )
         )
-        self.mock_token = lambda: mock.patch(
+        cls.mock_token = lambda self: mock.patch(
             _provider_class + "._paypal_get_token",
             return_value="--TOKEN--",
         )
