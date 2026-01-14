@@ -66,7 +66,8 @@ EVENT_DESCRIPTIONS = {
     "T0401": _("AutoSweep"),
     "T0402": _("Withdrawal to Hyperwallet"),
     "T0403": _(
-        "Withdrawals initiated by user manually. Not related to automated scheduled withdrawals"
+        "Withdrawals initiated by user manually. "
+        "Not related to automated scheduled withdrawals"
     ),
     "T0500": _("General PayPal debit card transaction"),
     "T0501": _("Virtual PayPal debit card transaction"),
@@ -375,11 +376,9 @@ class OnlineBankStatementProviderPayPal(models.Model):
         url = (
             (self.api_base or PAYPAL_API_BASE)
             + "/v1/reporting/transactions"
-            + ("?start_date=%s" "&end_date=%s" "&fields=all")
-            % (
-                transaction_date_ini,
-                transaction_date_end,
-            )
+            + f"?start_date={transaction_date_ini}"
+            + f"&end_date={transaction_date_end}"
+            "&fields=all"
         )
         data = self._paypal_retrieve(url, token)
         transactions = data["transaction_details"]
@@ -478,8 +477,7 @@ class OnlineBankStatementProviderPayPal(models.Model):
     def _paypal_decode_error(self, content):
         if "name" in content:
             return UserError(
-                "%s: %s"
-                % (
+                "{}: {}".format(
                     content["name"],
                     content.get("message", _("Unknown error")),
                 )
@@ -487,8 +485,7 @@ class OnlineBankStatementProviderPayPal(models.Model):
 
         if "error" in content:
             return UserError(
-                "%s: %s"
-                % (
+                "{}: {}".format(
                     content["error"],
                     content.get("error_description", _("Unknown error")),
                 )
