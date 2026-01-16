@@ -4,7 +4,7 @@
 
 from odoo import api, models
 
-from odoo.addons.base.models.res_bank import sanitize_account_number
+from odoo.addons.base.models.res_partner_bank import sanitize_account_number
 
 
 class AccountJournal(models.Model):
