@@ -105,7 +105,7 @@ class AccountStatementImport(models.TransientModel):
             )
         currency_code, account_number, stmts_vals = single_statement_data
         # Check raw data
-        if not self._check_parsed_data(stmts_vals):
+        if not self._check_parsed_data(stmts_vals, account_number):
             return False
         if not currency_code:
             raise UserError(_("Missing currency code in the bank statement file."))
@@ -166,7 +166,7 @@ class AccountStatementImport(models.TransientModel):
             )
         )
 
-    def _check_parsed_data(self, stmts_vals):
+    def _check_parsed_data(self, stmts_vals, account_number):
         """
         Basic and structural verifications.
         Return False when empty data (don't raise en error, because we
