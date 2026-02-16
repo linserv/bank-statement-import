@@ -125,7 +125,13 @@ class OnlineBankStatementProviderStripe(models.Model):
             return json.loads(content)
         except HTTPError as e:
             content = json.loads(e.read().decode("utf-8"))
-            raise UserError(f"Stripe API call failed: {path}: {content}") from e
+            raise UserError(
+                self.env._(
+                    "Stripe API call failed: %(path)s: %(content)s",
+                    path=path,
+                    content=content,
+                )
+            ) from e
 
 
 def safe_format(template, kwargs):
