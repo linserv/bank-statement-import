@@ -7,8 +7,8 @@
 
 import base64
 
-from odoo.modules.module import get_module_resource
 from odoo.tests.common import TransactionCase
+from odoo.tools.misc import file_path
 
 
 class TestQifFile(TransactionCase):
@@ -37,11 +37,7 @@ class TestQifFile(TransactionCase):
         )
 
     def test_qif_file_import(self):
-        qif_file_path = get_module_resource(
-            "account_statement_import_qif",
-            "tests",
-            "test_qif.qif",
-        )
+        qif_file_path = file_path("account_statement_import_qif/tests/test_qif.qif")
         qif_file = base64.b64encode(open(qif_file_path, "rb").read())
         wizard = self.statement_import_model.with_context(
             journal_id=self.journal.id
