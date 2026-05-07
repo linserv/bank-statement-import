@@ -27,7 +27,7 @@ class TestAccountStatementImportOnlineQonto(TransactionCase):
         cls.OnlineBankStatementProvider = cls.env["online.bank.statement.provider"]
         cls.AccountBankStatement = cls.env["account.bank.statement"]
         cls.AccountBankStatementLine = cls.env["account.bank.statement.line"]
-
+        cls.currency_eur.write({"active": True})
         cls.bank_account = cls.ResPartnerBank.create(
             {
                 "acc_number": "FR0214508000302245362775K46",
@@ -49,8 +49,10 @@ class TestAccountStatementImportOnlineQonto(TransactionCase):
 
     def mock_slug(self):
         return mock.patch(
-            _provider_class + "._qonto_get_slug",
-            return_value={"FR0214508000302245362775K46": "qonto-1234-bank-account-1"},
+            _provider_class + "._qonto_get_bank_account_ids",
+            return_value={
+                "FR0214508000302245362775K46": "018f71db-c635-78b5-b90a-ea05de98c2bf"
+            },
         )
 
     def mock_transaction(self):

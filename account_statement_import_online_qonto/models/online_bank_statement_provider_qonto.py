@@ -6,7 +6,7 @@ from datetime import datetime
 import pytz
 import requests
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 from odoo.addons.base.models.res_bank import sanitize_account_number
@@ -49,33 +49,38 @@ class OnlineBankStatementProviderQonto(models.Model):
         self.ensure_one()
         if self.username and self.password:
             return {"Authorization": f"{self.username}:{self.password}"}
-        raise UserError(_("Please fill login and key"))
+        raise UserError(self.env._("Please fill login and key"))
 
-    def _qonto_get_slug(self):
+    def _qonto_get_bank_account_ids(self):
         self.ensure_one()
-        url = QONTO_ENDPOINT + "/organizations/%7Bid%7D"
+        url = QONTO_ENDPOINT + "/organization"
         response = requests.get(url, headers=self._qonto_header(), timeout=10)
         if response.status_code == 200:
             data = json.loads(response.text)
             res = {}
-            for account in data.get("organization", {}).get("bank_accounts", []):
+            organization_data = data.get("organization", {})
+            bank_account_id = organization_data.get("id", "")
+            for account in organization_data.get("bank_accounts", []):
                 iban = sanitize_account_number(account.get("iban", ""))
-                res[iban] = account.get("slug")
+                res[iban] = bank_account_id
             return res
         raise UserError(
-            _("%(status_code)s \n\n %(response_text)s")
-            % {"status_code": response.status_code, "response_text": response.text}
+            self.env_(
+                "%(status_code)s \n\n %(response_text)s",
+                status_code=response.status_code,
+                response_text=response.text,
+            )
         )
 
-    def _qonto_obtain_transactions(self, slug, date_since, date_until):
+    def _qonto_obtain_transactions(self, bank_account_id, date_since, date_until):
         self.ensure_one()
         url = QONTO_ENDPOINT + "/transactions"
-        params = {"slug": slug, "iban": self.account_number}
+        params = {"bank_account_id": bank_account_id, "iban": self.account_number}
         # settled_at_to param isn't well formatted (ISO 8601) or year is out of range".
         # We set the last day of the year in such case.
         if date_since and date_until and date_since.year != date_until.year:
             date_until = fields.Datetime.from_string(
-                "%s-12-31 23:59:59" % date_since.year
+                f"{date_since.year}-12-31 23:59:59"
             )
         if date_since:
             params["settled_at_from"] = (
@@ -106,8 +111,11 @@ class OnlineBankStatementProviderQonto(models.Model):
         if response.status_code == 200:
             return json.loads(response.text)
         raise UserError(
-            _("%(status_code)s \n\n %(response_text)s")
-            % {"status_code": response.status_code, "response_text": response.text}
+            self.env._(
+                "%(status_code)s \n\n %(response_text)s",
+                status_code=response.status_code,
+                response_text=response.text,
+            )
         )
 
     def _qonto_prepare_statement_line(
@@ -130,22 +138,20 @@ class OnlineBankStatementProviderQonto(models.Model):
         }
         if not transaction["local_currency"]:
             raise UserError(
-                _(
+                self.env._(
                     "Transaction ID %(transaction_id)s has no local currency. "
-                    "This should never happen."
+                    "This should never happen.",
+                    transaction_id=transaction["transaction_id"],
                 )
-                % {"transaction_id": transaction["transaction_id"]}
             )
         if transaction["local_currency"] not in currencies_code2id:
             raise UserError(
-                _(
+                self.env._(
                     "Currency %(currency)s used in transaction ID "
-                    "%(transaction_id)s doesn't exist in Odoo."
+                    "%(transaction_id)s doesn't exist in Odoo.",
+                    currency=transaction["local_currency"],
+                    transaction_id=transaction["transaction_id"],
                 )
-                % {
-                    "currency": transaction["local_currency"],
-                    "transaction_id": transaction["transaction_id"],
-                }
             )
         line_currency_id = currencies_code2id[transaction["local_currency"]]
         if journal_currency.id != line_currency_id:
@@ -160,16 +166,20 @@ class OnlineBankStatementProviderQonto(models.Model):
     def _qonto_obtain_statement_data(self, date_since, date_until):
         self.ensure_one()
         journal = self.journal_id
-        slugs = self._qonto_get_slug()
-        slug = slugs.get(self.account_number)
-        if not slug:
+        bank_account_ids = self._qonto_get_bank_account_ids()
+        bank_account_id = bank_account_ids.get(self.account_number)
+        if not bank_account_id:
             raise UserError(
-                _("Qonto : wrong configuration, unknow account %s")
-                % journal.bank_account_id.acc_number
+                self.env._(
+                    "Qonto : wrong configuration, unknow account %(acc_number)s",
+                    acc_number=journal.bank_account_id.acc_number,
+                )
             )
-        transactions = self._qonto_obtain_transactions(slug, date_since, date_until)
+        transactions = self._qonto_obtain_transactions(
+            bank_account_id, date_since, date_until
+        )
         journal_currency = journal.currency_id or journal.company_id.currency_id
-        all_currencies = self.env["res.currency"].search_read([], ["name"])
+        all_currencies = self.env["res.currency"].search_read([], ["name"])  # pylint: disable=no-search-all
         currencies_code2id = {x["name"]: x["id"] for x in all_currencies}
         new_transactions = []
         sequence = 0
