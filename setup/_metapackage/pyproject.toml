@@ -1,11 +1,12 @@
 [project]
 name = "odoo-addons-oca-bank-statement-import"
-version = "19.0.20260506.0"
+version = "19.0.20260511.0"
 dependencies = [
     "odoo-addon-account_statement_import_base==19.0.*",
     "odoo-addon-account_statement_import_camt==19.0.*",
     "odoo-addon-account_statement_import_file==19.0.*",
     "odoo-addon-account_statement_import_online==19.0.*",
+    "odoo-addon-account_statement_import_online_qonto==19.0.*",
     "odoo-addon-account_statement_import_qif==19.0.*",
 ]
 classifiers=[
