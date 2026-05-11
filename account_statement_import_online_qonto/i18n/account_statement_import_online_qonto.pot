@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,8 +16,6 @@ msgstr ""
 #. module: account_statement_import_online_qonto
 #. odoo-python
 #: code:addons/account_statement_import_online_qonto/models/online_bank_statement_provider_qonto.py:0
-#: code:addons/account_statement_import_online_qonto/models/online_bank_statement_provider_qonto.py:0
-#, python-format
 msgid ""
 "%(status_code)s \n"
 "\n"
@@ -27,10 +25,19 @@ msgstr ""
 #. module: account_statement_import_online_qonto
 #. odoo-python
 #: code:addons/account_statement_import_online_qonto/models/online_bank_statement_provider_qonto.py:0
-#, python-format
 msgid ""
 "Currency %(currency)s used in transaction ID %(transaction_id)s doesn't "
 "exist in Odoo."
+msgstr ""
+
+#. module: account_statement_import_online_qonto
+#: model:ir.model.fields,field_description:account_statement_import_online_qonto.field_online_bank_statement_provider__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_statement_import_online_qonto
+#: model:ir.model.fields,field_description:account_statement_import_online_qonto.field_online_bank_statement_provider__id
+msgid "ID"
 msgstr ""
 
 #. module: account_statement_import_online_qonto
@@ -51,21 +58,18 @@ msgstr ""
 #. module: account_statement_import_online_qonto
 #. odoo-python
 #: code:addons/account_statement_import_online_qonto/models/online_bank_statement_provider_qonto.py:0
-#, python-format
 msgid "Please fill login and key"
 msgstr ""
 
 #. module: account_statement_import_online_qonto
 #. odoo-python
 #: code:addons/account_statement_import_online_qonto/models/online_bank_statement_provider_qonto.py:0
-#, python-format
-msgid "Qonto : wrong configuration, unknow account %s"
+msgid "Qonto : wrong configuration, unknow account %(acc_number)s"
 msgstr ""
 
 #. module: account_statement_import_online_qonto
 #. odoo-python
 #: code:addons/account_statement_import_online_qonto/models/online_bank_statement_provider_qonto.py:0
-#, python-format
 msgid ""
 "Transaction ID %(transaction_id)s has no local currency. This should never "
 "happen."
