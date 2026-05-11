@@ -59,10 +59,9 @@ class OnlineBankStatementProviderQonto(models.Model):
             data = json.loads(response.text)
             res = {}
             organization_data = data.get("organization", {})
-            bank_account_id = organization_data.get("id", "")
             for account in organization_data.get("bank_accounts", []):
                 iban = sanitize_account_number(account.get("iban", ""))
-                res[iban] = bank_account_id
+                res[iban] = account.get("id", "")
             return res
         raise UserError(
             self.env_(
@@ -75,7 +74,9 @@ class OnlineBankStatementProviderQonto(models.Model):
     def _qonto_obtain_transactions(self, bank_account_id, date_since, date_until):
         self.ensure_one()
         url = QONTO_ENDPOINT + "/transactions"
-        params = {"bank_account_id": bank_account_id, "iban": self.account_number}
+        params = {"iban": self.account_number}
+        if bank_account_id:
+            params.update({"bank_account_id": bank_account_id})
         # settled_at_to param isn't well formatted (ISO 8601) or year is out of range".
         # We set the last day of the year in such case.
         if date_since and date_until and date_since.year != date_until.year:
