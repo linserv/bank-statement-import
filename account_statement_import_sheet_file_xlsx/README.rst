@@ -2,9 +2,9 @@
    :target: https://odoo-community.org/get-involved?utm_source=readme
    :alt: Odoo Community Association
 
-====================================
-Bank Statement TXT/CSV Import (Base)
-====================================
+==========================
+Bank Statement XLSX Import
+==========================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -21,10 +21,10 @@ Bank Statement TXT/CSV Import (Base)
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fbank--statement--import-lightgray.png?logo=github
-    :target: https://github.com/OCA/bank-statement-import/tree/19.0/account_statement_import_sheet_file
+    :target: https://github.com/OCA/bank-statement-import/tree/19.0/account_statement_import_sheet_file_xlsx
     :alt: OCA/bank-statement-import
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/bank-statement-import-19-0/bank-statement-import-19-0-account_statement_import_sheet_file
+    :target: https://translation.odoo-community.org/projects/bank-statement-import-19-0/bank-statement-import-19-0-account_statement_import_sheet_file_xlsx
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
     :target: https://runboat.odoo-community.org/builds?repo=OCA/bank-statement-import&target_branch=19.0
@@ -32,9 +32,8 @@ Bank Statement TXT/CSV Import (Base)
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module is the base for a system for importing sheet-like files, and
-includes the direct support for TXT/CSV. Other formats like XLS, XLSX
-will be added by additional modules.
+This module allows you to import any XLSX file in Odoo as bank
+statements.
 
 **Table of contents**
 
@@ -56,20 +55,9 @@ Usage
 
 To use this module, you need to:
 
-1. Get statement in TXT/CSV from your online banking software
+1. Get statement in XLSX from your online banking software
 2. Go to Odoo and and import the statement file, selecting corresponding
    format
-
-Changelog
-=========
-
-12.0.2.0.0
-----------
-
-- [BREAKING] New mapping, please review mappings after upgrade.
-- [BREAKING] Different bank accounts have to be used per each currency.
-- [ADD] Support for both Statement and Activity reports.
-- [ADD] Separate fee and currency exchange parsing.
 
 Bug Tracker
 ===========
@@ -77,7 +65,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/bank-statement-import/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/bank-statement-import/issues/new?body=module:%20account_statement_import_sheet_file%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/bank-statement-import/issues/new?body=module:%20account_statement_import_sheet_file_xlsx%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -87,36 +75,24 @@ Credits
 Authors
 -------
 
-* ForgeFlow
-* CorporateHub
+* Tecnativa
 
 Contributors
 ------------
 
-- Alexis de Lattre <alexis.delattre@akretion.com>
-- Sebastien BEAU <sebastien.beau@akretion.com>
 - Katherine Zaoral
+
 - Tecnativa (https://www.tecnativa.com)
 
-  - Vicent Cubells
-  - Victor M.M. Torres
-  - Víctor Martínez
+  - Carlos López
+  - Pedro M. Baeza
   - Andrii Kompaniiets
 
 - ForgeFlow (https://www.forgeflow.com)
 
   - Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
-  - Miquel Raïch Regué <miquel.raich@forgeflow.com>
-
-- `CorporateHub <https://corporatehub.eu/>`__
-
-  - Alexey Pelykh <alexey.pelykh@corphub.eu>
 
 - Sebastiano Picchi sebastiano.picchi@pytech.it
-- Jacques-Etienne Baudoux (BCIM) je@bcim.be
-- Studio73 (https://www.studio73.es)
-
-  - Roger Amorós <roger@studio73.es>
 
 Maintainers
 -----------
@@ -131,14 +107,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-.. |maintainer-alexey-pelykh| image:: https://github.com/alexey-pelykh.png?size=40px
-    :target: https://github.com/alexey-pelykh
-    :alt: alexey-pelykh
-
-Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
-
-|maintainer-alexey-pelykh| 
-
-This module is part of the `OCA/bank-statement-import <https://github.com/OCA/bank-statement-import/tree/19.0/account_statement_import_sheet_file>`_ project on GitHub.
+This module is part of the `OCA/bank-statement-import <https://github.com/OCA/bank-statement-import/tree/19.0/account_statement_import_sheet_file_xlsx>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
