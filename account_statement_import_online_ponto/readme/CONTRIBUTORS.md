@@ -6,3 +6,5 @@
   - Ronald Portier \<<ronald@therp.nl>\>
 - [Tesseratech](https://tesseratech.es):
   - Christian Doñate
+- [APSL - Nagarro](https://apsl.net):
+  - Miquel Pascual

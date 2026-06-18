@@ -9,7 +9,7 @@ from operator import itemgetter
 
 import pytz
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -68,7 +68,7 @@ class OnlineBankStatementProvider(models.Model):
         is_scheduled = self.env.context.get("scheduled", False)
         if is_scheduled:
             _logger.debug(
-                _(
+                self.env._(
                     "Ponto obtain statement data for journal %(journal)s"
                     " from %(date_since)s to %(date_until)s"
                 ),
@@ -80,12 +80,12 @@ class OnlineBankStatementProvider(models.Model):
             )
         else:
             _logger.debug(
-                _("Ponto obtain all new statement data for journal %s"),
+                self.env._("Ponto obtain all new statement data for journal %s"),
                 self.journal_id.name,
             )
         lines = self._ponto_retrieve_data(date_since, date_until)
         if not lines:
-            _logger.info(_("No lines were retrieved from Ponto"))
+            _logger.info(self.env._("No lines were retrieved from Ponto"))
         else:
             # For scheduled runs, store latest identifier.
             if is_scheduled:

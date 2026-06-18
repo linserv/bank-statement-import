@@ -5,7 +5,7 @@ import logging
 from datetime import datetime
 from unittest import mock
 
-from odoo import _, fields
+from odoo import fields
 from odoo.tests import common
 
 _logger = logging.getLogger(__name__)
@@ -215,6 +215,7 @@ class TestAccountStatementImportOnlinePonto(common.TransactionCase):
                 "journal_id": self.journal.id,
                 # To get all the moves in a month at once
                 "statement_creation_mode": "monthly",
+                "tz": "UTC",
             }
         )
 
@@ -400,7 +401,7 @@ class TestAccountStatementImportOnlinePonto(common.TransactionCase):
         line_count = len(lines)
         if line_count != expected_count:
             _logger.info(
-                _("Statement contains transactions: %s"),
+                self.env._("Statement contains transactions: %s"),
                 " ".join(lines.mapped("unique_import_id")),
             )
         self.assertEqual(line_count, expected_count)
