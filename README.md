@@ -30,7 +30,7 @@ addon | version | maintainers | summary
 [account_statement_import_online_ponto](account_statement_import_online_ponto/) | 19.0.1.0.0 |  | Online Bank Statements: MyPonto.com
 [account_statement_import_online_qonto](account_statement_import_online_qonto/) | 19.0.1.0.1 |  | Online Bank Statements: Qonto
 [account_statement_import_qif](account_statement_import_qif/) | 19.0.1.0.0 |  | Import QIF Bank Statements
-[account_statement_import_sheet_file](account_statement_import_sheet_file/) | 19.0.2.0.1 | <a href='https://github.com/alexey-pelykh'><img src='https://github.com/alexey-pelykh.png' width='32' height='32' style='border-radius:50%;' alt='alexey-pelykh'/></a> | Import TXT/CSV files as Bank Statements in Odoo
+[account_statement_import_sheet_file](account_statement_import_sheet_file/) | 19.0.2.0.2 | <a href='https://github.com/alexey-pelykh'><img src='https://github.com/alexey-pelykh.png' width='32' height='32' style='border-radius:50%;' alt='alexey-pelykh'/></a> | Import TXT/CSV files as Bank Statements in Odoo
 [account_statement_import_sheet_file_xls](account_statement_import_sheet_file_xls/) | 19.0.2.0.0 |  | Import XLS files as Bank Statements in Odoo
 [account_statement_import_sheet_file_xlsx](account_statement_import_sheet_file_xlsx/) | 19.0.2.0.0 |  | Import XLSX files as Bank Statements in Odoo
 
