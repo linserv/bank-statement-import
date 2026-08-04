@@ -9,7 +9,7 @@ import requests
 from dateutil.relativedelta import relativedelta
 from werkzeug.urls import url_join
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
@@ -134,8 +134,10 @@ class OnlineBankStatementProvider(models.Model):
     def action_select_gocardless_bank(self):
         if not self.journal_id.bank_account_id:
             raise UserError(
-                _("To continue configure bank account on journal %s")
-                % (self.journal_id.display_name)
+                self.env._(
+                    "To continue configure bank account on journal %s",
+                    self.journal_id.display_name,
+                )
             )
         # Check if there's another existing provider for the same bank institution,
         # and ask for reusing it for this bank account, as some banks don't allow
@@ -160,7 +162,7 @@ class OnlineBankStatementProvider(models.Model):
                 "type": "ir.actions.act_window",
                 "res_model": wizard._name,
                 "res_id": wizard.id,
-                "name": _("Existing link"),
+                "name": self.env._("Existing link"),
                 "view_mode": "form",
                 "target": "new",
             }
@@ -173,7 +175,9 @@ class OnlineBankStatementProvider(models.Model):
             "institutions", params={"country": country.code}
         )
         if response.status_code == 400:
-            raise UserError(_("Incorrect country code or country not supported."))
+            raise UserError(
+                self.env._("Incorrect country code or country not supported.")
+            )
         institutions = data
         # Prepare data for being showed in the JS widget
         ctx = self.env.context.copy()
@@ -190,7 +194,7 @@ class OnlineBankStatementProvider(models.Model):
         return {
             "type": "ir.actions.client",
             "tag": "online_sync_institution_selector_gocardless",
-            "name": _("Select Bank of your Account"),
+            "name": self.env._("Select Bank of your Account"),
             "params": {},
             "target": "new",
             "context": ctx,
@@ -268,8 +272,10 @@ class OnlineBankStatementProvider(models.Model):
                 agreement_data["accepted"], "%Y-%m-%dT%H:%M:%S.%fZ"
             ) + relativedelta(days=agreement_data["access_valid_for_days"])
             self.sudo().message_post(
-                body=_("Your account number %(iban_number)s is successfully attached.")
-                % {"iban_number": self.journal_id.bank_account_id.display_name}
+                body=self.env._(
+                    "Your account number %s is successfully attached.",
+                    self.journal_id.bank_account_id.display_name,
+                )
             )
             return True
         elif not dry:
@@ -281,14 +287,12 @@ class OnlineBankStatementProvider(models.Model):
                 }
             )
             self.sudo().message_post(
-                body=_(
-                    "Your account number %(iban_number)s it's not in the IBAN "
-                    "account numbers found %(accounts_iban)s, please check"
+                body=self.env._(
+                    "Your account number %(account)s it's not in the IBAN "
+                    "account numbers found %(ibans)s, please check",
+                    account=self.journal_id.bank_account_id.display_name,
+                    ibans=" / ".join(accounts_iban),
                 )
-                % {
-                    "iban_number": self.journal_id.bank_account_id.display_name,
-                    "accounts_iban": " / ".join(accounts_iban),
-                }
             )
         return False
 
@@ -326,7 +330,7 @@ class OnlineBankStatementProvider(models.Model):
         currency_model = self.env["res.currency"]
         if self.gocardless_requisition_expiration <= fields.Datetime.now():
             self.sudo().message_post(
-                body=_(
+                body=self.env._(
                     "You should renew the authorization process with your bank "
                     "institution for GoCardless."
                 )
