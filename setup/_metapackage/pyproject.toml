@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-oca-bank-statement-import"
-version = "19.0.20260825.0"
+version = "19.0.20260825.1"
 dependencies = [
     "odoo-addon-account_statement_import_base==19.0.*",
     "odoo-addon-account_statement_import_camt54==19.0.*",
@@ -8,6 +8,7 @@ dependencies = [
     "odoo-addon-account_statement_import_file==19.0.*",
     "odoo-addon-account_statement_import_file_reconcile_oca==19.0.*",
     "odoo-addon-account_statement_import_online==19.0.*",
+    "odoo-addon-account_statement_import_online_gocardless==19.0.*",
     "odoo-addon-account_statement_import_online_paypal==19.0.*",
     "odoo-addon-account_statement_import_online_ponto==19.0.*",
     "odoo-addon-account_statement_import_online_qonto==19.0.*",
