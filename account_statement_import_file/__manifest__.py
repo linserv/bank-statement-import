@@ -14,9 +14,9 @@
     "development_status": "Mature",
     "website": "https://github.com/OCA/bank-statement-import",
     "data": [
-        "security/ir.model.access.csv",
         "wizard/account_statement_import_view.xml",
         "views/account_journal.xml",
+        'security/ir.access.csv',
     ],
     "demo": [
         "demo/partner_bank.xml",
